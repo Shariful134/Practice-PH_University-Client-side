@@ -1,13 +1,13 @@
 import "./App.css";
 import MainLayout from "./components/layout/MainLayout";
-import ProtectedRoutes from "./routes/ProtectedRoutes";
+import ProtectRoute from "./routes/ProtectRoute";
 
 function App() {
   return (
     <>
-      <ProtectedRoutes>
+      <ProtectRoute>
         <MainLayout></MainLayout>
-      </ProtectedRoutes>
+      </ProtectRoute>
     </>
   );
 }

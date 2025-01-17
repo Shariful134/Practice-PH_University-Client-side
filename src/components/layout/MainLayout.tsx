@@ -4,70 +4,29 @@
 //   VideoCameraOutlined,
 // } from "@ant-design/icons";
 
-import { Layout, Menu, MenuProps } from "antd";
-import { NavLink, Outlet } from "react-router";
-import { adminSidebarItem } from "../../routes/admin.routes";
+import { Button, Layout } from "antd";
+import { Outlet } from "react-router";
+
+import { useAppDispath } from "../../redux/hooks";
+import { logOut } from "../../redux/features/auth/authSlice";
+import Sidebar from "./Sidbar";
+
 // import { createElement } from "react";
 
-const { Header, Content, Footer, Sider } = Layout;
+const { Header, Content, Footer } = Layout;
 
-// const items: MenuProps["items"] = [
-//   {
-//     key: "Dashboard",
-//     label: <NavLink to={"/admin/dashboard"}>Dashboard</NavLink>,
-//   },
-//   {
-//     key: "User Manegement",
-//     label: "User Manegement",
-//     children: [
-//       {
-//         key: "create admin",
-//         label: <NavLink to={"/admin/create-admin"}>Create Admin</NavLink>,
-//       },
-//       {
-//         key: "create student",
-//         label: <NavLink to={"/admin/create-student"}>Create Student</NavLink>,
-//       },
-//       {
-//         key: "create faculty",
-//         label: <NavLink to={"/admin/create-faculty"}>Create Faculty</NavLink>,
-//       },
-//     ],
-//   },
-// ];
 const MainLayout = () => {
+  const dispatch = useAppDispath();
+  const handleLogout = () => {
+    dispatch(logOut());
+  };
   return (
     <Layout style={{ height: "100vh" }}>
-      <Sider
-        breakpoint="lg"
-        collapsedWidth="0"
-        onBreakpoint={(broken) => {
-          console.log(broken);
-        }}
-        onCollapse={(collapsed, type) => {
-          console.log(collapsed, type);
-        }}
-      >
-        <div
-          style={{
-            height: "4rem",
-            color: "white",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <h1>PH-Uni</h1>
-        </div>
-        <Menu
-          theme="dark"
-          mode="inline"
-          defaultSelectedKeys={["4"]}
-          items={adminSidebarItem}
-        />
-      </Sider>
+      <Sidebar></Sidebar>
       <Layout>
-        <Header style={{ padding: 0 }} />
+        <Header style={{ padding: 0 }}>
+          <Button onClick={handleLogout}>LogOut</Button>
+        </Header>
         <Content style={{ margin: "24px 16px 0" }}>
           <div
             style={{
