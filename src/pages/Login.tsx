@@ -1,12 +1,18 @@
-import { Button } from "antd";
+import { Button, Row } from "antd";
 
-import { FieldValues, useForm } from "react-hook-form";
 import { useLoginMutation } from "../redux/features/auth/authApi";
 import { useAppDispath } from "../redux/hooks";
 import { setUser, TUser } from "../redux/features/auth/authSlice";
 import { verifyToken } from "../utils/verifyToken";
 import { useNavigate } from "react-router";
 import { toast } from "sonner";
+import PHForm from "../components/form/PHForm";
+import PHInput from "../components/form/PHInput";
+
+const defaultValues = {
+  userId: "A-0001",
+  password: "admin123",
+};
 
 const Login = () => {
   const navigate = useNavigate();
@@ -14,12 +20,6 @@ const Login = () => {
   const [login, { data, error }] = useLoginMutation();
 
   console.log("error => ", error);
-  const { register, handleSubmit } = useForm({
-    defaultValues: {
-      userId: "A-0001",
-      password: "admin123",
-    },
-  });
 
   const onSubmit = async (data: FieldValues) => {
     // console.log(data);
@@ -43,19 +43,26 @@ const Login = () => {
     }
   };
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <div>
-        <label htmlFor="id">Id:</label>
-        <input type="text" {...register("userId")} />
-      </div>
-      <div>
-        <label htmlFor="password">Password:</label>
-        <input type="text" {...register("password")} />
-      </div>
-      <Button htmlType="submit" style={{ border: "2px solid purple" }}>
-        Login
-      </Button>
-    </form>
+    <Row style={{ height: "a00vh" }} justify="center" align="middle">
+      <PHForm onSubmit={onSubmit} defaultValues={defaultValues}>
+        <PHInput type="text" name="userId" label="Id: "></PHInput>
+        <PHInput type="text" name="password" label="Password: "></PHInput>
+        <Button>Login</Button>
+      </PHForm>
+    </Row>
+    // <form onSubmit={handleSubmit(onSubmit)}>
+    //   <div>
+    //     <label htmlFor="id">Id:</label>
+    //     <input type="text" {...register("userId")} />
+    //   </div>
+    //   <div>
+    //     <label htmlFor="password">Password:</label>
+    //     <input type="text" {...register("password")} />
+    //   </div>
+    //   <Button htmlType="submit" style={{ border: "2px solid purple" }}>
+    //     Login
+    //   </Button>
+    // </form>
   );
 };
 
